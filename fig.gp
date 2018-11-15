@@ -25,71 +25,10 @@ set label "b" at screen 0.30,0.94 font "Symbol,40" tc rgb 'black'
 set label "c" at screen 0.60,0.94 font "Symbol,40" tc rgb 'black' 
 
 
-#plot ab(1,1) - a
+#plot (1,1) 
 
-set lmargin at screen 0.05
-set rmargin at screen 0.26
-set tmargin at screen 0.88
-set bmargin at screen 0.55
+#plot (2,1) -left  matrix W
 
-set border 3
-
-set xlabel "time(s)"
-set ylabel "potentials" offset -1,0
-
-set xrange [0:1]
-set yrange [-10:20]
-
-set xtics (0,0.2,0.4,0.6,0.8) nomirror
-set ytics (-10,0,10,20) nomirror
-
-unset key
-
-# load dir2."/set3.pal"
-# set cbrange [2:6] 
-# plot for [i=2:6] dir."/ActivityMatrix.txt" u 1:i w l lw 2 lc palette cb i 
-plot  dir."/ActivityMatrix_select.txt" u 1:2 w l lw 2 lc rgb "#8dd3c7" ,\
-     "" u 1:3 w l lw 2 lc rgb "#ffffb3" ,\
-     "" u 1:4 w l lw 2 lc rgb "#bebada" ,\
-     "" u 1:5 w l lw 2 lc rgb "#fb8072" ,\
-     "" u 1:6 w l lw 2 lc rgb "#80b1d3" 
-
-
-
-#plot ab(1,2) - b
-
-set lmargin at screen 0.34
-set rmargin at screen 0.42
-set tmargin at screen 0.88
-set bmargin at screen 0.55
-
-set xzeroaxis 
-set arrow from 1, graph 0 to 1, graph 1 nohead lc rgb "red" dt 2
-
-unset label
-set xlabel "real part" font "Helvetica,20"
-set ylabel "imag. part " font "Helvetica,20" offset +1,0
-
-set xrange [-25:2]
-set yrange [-15:15]
-
-set xtics (-20,"" -10,0,"" 10) nomirror
-set xtics font "Times-Roman, 20" offset 0,-0.3
-set ytics (-15,0,15) nomirror 
-set ytics in
-
-
-plot dir."/Connty_W.txt" w p pt 7 ps 0.3 lc rgb 'black',\
-     dir."/Connty_W_select.txt" u 1:2 w p pt 7 ps 0.5 lc rgb '#dark-violet',\
-     "" u 1:3 w p pt 7 ps 0.3 lc rgb "#009e73",\
-     "" u 1:4 w p pt 7 ps 0.3 lc rgb "#56b4e9",\
-     "" u 1:5 w p pt 7 ps 0.3 lc rgb "#e69f00",\
-     "" u 1:6 w p pt 7 ps 0.3 lc rgb "#f0e442"
-
-
-
-
-#plot ab(1,3) - b
 set lmargin at screen 0.47
 set rmargin at screen 0.55
 set tmargin at screen 0.88
@@ -120,49 +59,66 @@ plot dir."/AngleMap.txt" mat w image
 
 
 
+#plot (2,1) -right  matrix W SPA
+
+set lmargin at screen 0.34
+set rmargin at screen 0.42
+set tmargin at screen 0.88
+set bmargin at screen 0.55
+
+set xzeroaxis 
+set arrow from 1, graph 0 to 1, graph 1 nohead lc rgb "red" dt 2
+
+unset label
+set xlabel "real part" font "Helvetica,20"
+set ylabel "imag. part " font "Helvetica,20" offset +1,0
+
+set xrange [-25:2]
+set yrange [-15:15]
+
+set xtics (-20,"" -10,0,"" 10) nomirror
+set xtics font "Times-Roman, 20" offset 0,-0.3
+set ytics (-15,0,15) nomirror 
+set ytics in
 
 
-#plot ab(2,1) - a
+plot dir."/Connty_W.txt" w p pt 7 ps 0.3 lc rgb 'black',\
+     dir."/Connty_W_select.txt" u 1:2 w p pt 7 ps 0.5 lc rgb '#dark-violet',\
+     "" u 1:3 w p pt 7 ps 0.3 lc rgb "#009e73",\
+     "" u 1:4 w p pt 7 ps 0.3 lc rgb "#56b4e9",\
+     "" u 1:5 w p pt 7 ps 0.3 lc rgb "#e69f00",\
+     "" u 1:6 w p pt 7 ps 0.3 lc rgb "#f0e442"
+
+
+#plot (3,1) neural response
 
 set lmargin at screen 0.05
 set rmargin at screen 0.26
-set tmargin at screen 0.45
-set bmargin at screen 0.12
+set tmargin at screen 0.88
+set bmargin at screen 0.55
 
 set border 3
-set logscale
 
-set xlabel "frequency" offset 0,-1
-set ylabel "power" offset +3,0
+set xlabel "time(s)"
+set ylabel "potentials" offset -1,0
 
-set xrange [0.1:1000]
-set yrange [1e-10:1]
+set xrange [0:1]
+set yrange [-10:20]
 
-set xtics (0.1,1,10,100, 1000) offset +1.5,-0.5
-set format x "$10^{%L}$"
-set ytics offset +0.6,+0.2
-set ytics (1e-10,"" 1e-8, "" 1e-6, "" 1e-4, "" 1e-2, 1) 
-set format y "$10^{%L}$"
+set xtics (0,0.2,0.4,0.6,0.8) nomirror
+set ytics (-10,0,10,20) nomirror
 
-plot dir."/ActivityMatrix_psd_select.txt" u 1:2 w l lw 2 lc rgb "#8dd3c7" ,\
+unset key
+
+# load dir2."/set3.pal"
+# set cbrange [2:6] 
+# plot for [i=2:6] dir."/ActivityMatrix.txt" u 1:i w l lw 2 lc palette cb i 
+plot  dir."/ActivityMatrix_select.txt" u 1:2 w l lw 2 lc rgb "#8dd3c7" ,\
      "" u 1:3 w l lw 2 lc rgb "#ffffb3" ,\
      "" u 1:4 w l lw 2 lc rgb "#bebada" ,\
      "" u 1:5 w l lw 2 lc rgb "#fb8072" ,\
-     "" u 1:6 w l lw 2 lc rgb "#80b1d3"
+     "" u 1:6 w l lw 2 lc rgb "#80b1d3" 
 
-
-
-#plot ab(2,2) - b
-set lmargin at screen 0.34
-set rmargin at screen 0.55
-set tmargin at screen 0.45
-set bmargin at screen 0.12
-
-plot dir."/ActivityProjectionMatrix_psd_select.txt" u 1:2 w l lw 2 lc rgb "dark-violet",\
-     "" u 1:3 w l lw 2 lc rgb "#009e73",\
-     "" u 1:4 w l lw 2 lc rgb "#56b4e9",\
-     "" u 1:5 w l lw 2 lc rgb "#e69f00",\
-     "" u 1:6 w l lw 2 lc rgb "#f0e442"
 
 #load "rdbu.pal"
 #set cbrange [2:6]
@@ -171,7 +127,7 @@ plot dir."/ActivityProjectionMatrix_psd_select.txt" u 1:2 w l lw 2 lc rgb "dark-
 
 
 
-
+# plot (1:3, 2:4) EI balance
 
 #plot C(1,1) - c
 
@@ -221,15 +177,6 @@ plot dir."/Arm_detailedbalance_2.txt" u 1:4 w lp ls 1,\
      "" u 1:8 w lp ls 2
 
 
-#plot C(1,4) - c
-set lmargin at screen 0.90
-set rmargin at screen 0.97
-set title "neuron 4"
-plot dir."/Arm_detailedbalance_2.txt" u 1:5 w lp ls 1,\
-     "" u 1:9 w lp ls 2
-
-
-
 
 
 
@@ -263,11 +210,6 @@ set rmargin at screen 0.88
 plot dir."/Arm_detailedbalance_50.txt" u 1:4 w lp ls 1,\
      "" u 1:8 w lp ls 2
 
-#plot C(2,4) - c
-set lmargin at screen 0.90
-set rmargin at screen 0.97
-plot dir."/Arm_detailedbalance_50.txt" u 1:5 w lp ls 1,\
-     "" u 1:9 w lp ls 2
 
 
 
@@ -303,12 +245,6 @@ set lmargin at screen 0.81
 set rmargin at screen 0.88
 plot dir."/Arm_detailedbalance_200.txt" u 1:4 w lp ls 1,\
      "" u 1:8 w lp ls 2
-
-#plot C(3,4) - c
-set lmargin at screen 0.90
-set rmargin at screen 0.97
-plot dir."/Arm_detailedbalance_200.txt" u 1:5 w lp ls 1,\
-     "" u 1:9 w lp ls 2
 
 
 
