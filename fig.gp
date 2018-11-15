@@ -116,7 +116,7 @@ replot
 
 lm=0.42
 rm=0.51
-tm=0.838
+tm=0.83
 bm=0.75
 vgap=0.01
 hgap=0.01
@@ -127,17 +127,20 @@ h=(tm-bm-(nr-1)*vgap)/nr
 psbig=0.8
 pssmall=0.4
 
-set xrange [0:9]
+set xrange [-45:180]
 set autoscale y
-set offsets graph 0.1, graph 0, graph 0, graph 0.1  
+set xtics -90, 90, 180 out nomirror
+set mxtics 2
+set format x ""
+set offsets graph 0.1, graph 0, graph 0, graph 0.2  
 
 do for [c=0:2] {
 
-if (c==0) { n=1 }
-if (c==1) { n=2 }
-if (c==2) { n=3 }
+if (c==0) { n=2 }
+if (c==1) { n=38 }
+if (c==2) { n=125 }
 
-if (c==0) { border_c = 2 } else { border_c = 0 }
+if (c==0) { border_c = 0 } else { border_c = 0 }
 
 set lmargin at screen lm+c*(w+hgap)
 set rmargin at screen lm+c*(w+hgap)+w
@@ -147,27 +150,67 @@ r=0
 set tmargin at screen tm-r*(h+vgap)
 set bmargin at screen tm-r*(h+vgap)-h
 set border 1+border_c
-plot dir.'/Arm_EI_'.time.'.txt' u 0:n+1 w lp pt 7 lc 7 ps psbig lw 3, \
-     '' u 0:n+1 w p pt 7 lc rgb 'white' ps pssmall, \
-     '' u 0:(-column(200+n+1)) w lp pt 7 lc 3 ps 1 lw 3, \
-     '' u 0:(-column(200+n+1)) w p pt 7 lc rgb 'white' ps pssmall
+set title 'neuron '.n
+plot dir.'/Arm_EI_'.time.'.txt' u 1:n+1 w lp pt 7 lc 7 ps psbig lw 3, \
+     '' u 1:n+1 w p pt 7 lc rgb 'white' ps pssmall, \
+     '' u 1:(+column(200+n+1)) w lp pt 7 lc 3 ps 1 lw 3, \
+     '' u 1:(+column(200+n+1)) w p pt 7 lc rgb 'white' ps pssmall
+unset title
 
-time=50
+time=200
 r=1
 set tmargin at screen tm-r*(h+vgap)
 set bmargin at screen tm-r*(h+vgap)-h
 replot
 
-time=200
+time=400
 r=2
-set border 3
+if (c==0) { set format x "%g"; set xlabel 'reach angle (deg)' offset 1,0 }
 set tmargin at screen tm-r*(h+vgap)
 set bmargin at screen tm-r*(h+vgap)-h
 replot
+set format x ""
+unset xlabel
  
 }
 
+# histograms of E/I balance
 
+set lmargin at screen 0.52
+set rmargin at screen 0.54
+set xrange [-1.15:1.15]
+set xtics -1,1,1 out nomirror
+set mxtics 2
+set format x ""
+set border 1
+set boxwidth 0.2
+binwidth=0.2
+bin(val)=binwidth*floor(val/binwidth)
+set offsets 0, 0, graph 0.5, 0
+
+r=0
+set title '$t=1$ ms' offset 0, -2.5
+set tmargin at screen tm-r*(h+vgap)
+set bmargin at screen tm-r*(h+vgap)-h
+time = 1
+plot dir.'/EI_cor_'.time u (bin($1)):(1.0) smooth frequency w boxes lc rgb 'black' fs solid 0.2
+
+r=1
+set title '$t=200$ ms' offset 0, -2.5
+set tmargin at screen tm-r*(h+vgap)
+set bmargin at screen tm-r*(h+vgap)-h
+time = 200
+replot
+ 
+r=2
+set title '$t=400$ ms' offset 0, -2.5
+set tmargin at screen tm-r*(h+vgap)
+set bmargin at screen tm-r*(h+vgap)-h
+set format x "%g"
+set xlabel 'E/I cor.'
+time = 400
+replot
+# 
 #set cbtics (0, "$\\frac{\\pi}{4}$" 0.7854, "$\\frac{\\pi}{2}$" 1.5708)
 
 
