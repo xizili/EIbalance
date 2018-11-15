@@ -18,7 +18,6 @@ set style line 2 lt 1 lw 2 pt 9 ps 0.8 lc rgb "#56b4e9"
 
 
 dir = "/Users/xizi/Desktop/cosyne"
-dir2 = "/Users/xizi/utils/gnuplot-palettes"
 
 set label "a" at screen 0.02,0.94 font "Symbol,40" tc rgb 'black' 
 set label "b" at screen 0.30,0.94 font "Symbol,40" tc rgb 'black' 
@@ -38,7 +37,7 @@ unset border
 unset xzeroaxis 
 unset arrow
 
-set palette model RGB defined (0 'white', 1.5708 'orange')
+set palette model RGB defined (-5 'blue', 0 'white', 5 'red')
 set cbrange [0:1.5708]
 set cbtics (0, "$\\frac{\\pi}{4}$" 0.7854, "$\\frac{\\pi}{2}$" 1.5708)
 
@@ -52,9 +51,9 @@ set tics in
 set xtics (1,103) nomirror
 set format x "%g"
 set ytics (1,103) nomirror
-set format y "%g"
+set format y "%g"j
 
-plot dir."/AngleMap.txt" mat w image
+plot dir."/W.txt" mat w image
 
 
 
