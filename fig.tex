@@ -11,9 +11,18 @@
 %\usepackage{cmbright}
 
 % you might want to define some colors:
-%\definecolor{myred}{HTML}{E51E10}
-%\definecolor{myblue}{HTML}{56B4E9}
-
+\definecolor{exc}{HTML}{E51E10}
+\definecolor{inh}{HTML}{56B4E9}
+\definecolor{control}{HTML}{41AB5D}
+\definecolor{m1}{HTML}{D73027}
+\definecolor{m2}{HTML}{F46D43}
+\definecolor{m3}{HTML}{FDAE61}
+\definecolor{m4}{HTML}{FEE090}
+\definecolor{m5}{HTML}{ABD9E9}
+\definecolor{m6}{HTML}{74ADD1}
+\definecolor{m7}{HTML}{4575B4}
+\definecolor{m8}{HTML}{313695}
+ 
 \usetikzlibrary[positioning,arrows,arrows.meta,shapes,calc,spy,intersections,shadows,bending]
 \usetikzlibrary[decorations.text,decorations.pathmorphing,decorations.markings]
 
@@ -38,9 +47,89 @@
 
 % ----------------------------------------------------
 
+% plot 8 straight movements 
+\node (c) at (37.9,82.7) [circle,inner sep=0em,minimum width=4.5em] {};
+\draw [m1,very thick] (c.center) -- (c.-36);
+\draw [m2,very thick] (c.center) -- (c.0);
+\draw [m3,very thick] (c.center) -- (c.36);
+\draw [m4,very thick] (c.center) -- (c.72);
+\draw [m5,very thick] (c.center) -- (c.108);
+\draw [m6,very thick] (c.center) -- (c.144);
+\draw [m7,very thick] (c.center) -- (c.180);
+\draw [m8,very thick] (c.center) -- (c.216);
+ 
+
+% ----------------------------------------------------
+
 \node at (0,0) [above right,inner sep=0em] {\includegraphics{_tmp.pdf}};
 
 % HERE YOU CAN USE TIKZ CODE TO ADD DIAGRAMS ETC
+
+% ------------------------------------------------------------------------
+% ---      SOC schematics                                              ---
+% ------------------------------------------------------------------------
+ 
+\node (soc0) at (35,82) [circle,inner sep=0em,minimum width=8em] {};
+
+\begin{scope}[control,thick]
+\node (c1) at (soc0.west) [left=3em,align=right] {state\\initialization};
+\foreach \j in {160,170,...,200} 
+  \draw [->,>=latex] (c1.east) .. controls ++(0.4,0) .. (soc0.\j);
+\end{scope}
+
+\node (arm) at (soc0.east) [above right=-2.5em and 0.5em,circle,inner sep=0em,minimum width=8em,rotate=-20] 
+  {\includegraphics[width=4em]{truncated_body.png}};
+
+\coordinate (tout) at ($(soc0.east)+(1.2,0)$);
+\begin{scope}[thick]
+\foreach \j in {-20,-10}
+  \draw (tout) .. controls ++(-0.4,0) .. (soc0.\j);
+\foreach \j in {10,20}
+  \draw (tout) .. controls ++(-0.4,0) .. (soc0.\j);
+\draw [<-,>=latex] ($(tout)+(0.1,0)$) .. controls ++(-0.5,0) .. (soc0.0);
+\end{scope}
+
+\begin{scope}[shift={+(11,-13)}]
+\coordinate (a0) at (26.5,94);
+\coordinate (a1) at (27.1,94);
+\coordinate (a2) at (27.7,94.5);
+\coordinate (a3) at (27,95.6);
+\draw [white,line width=2.3pt,line cap=round] (a0) to (a1) to (a2) to (a3);
+\draw [black,dotted,thick] (a0) to (a1);
+\draw [black,thick] (a1) to (a2);
+\draw [black,thick] (a2) to (a3);
+\fill [black] (a1) circle (0.25em);
+\fill [white] (a1) circle (0.17em);
+\fill [black] (a2) circle (0.25em);
+\fill [white] (a2) circle (0.17em);
+\end{scope}
+
+% soc with E and I neurons
+\node (soc) at (soc0) [circle,thick,draw=black,fill=white,inner sep=0em,minimum width=8em] {};
+\node at (soc.north) [below=0.9em,font=\bfseries] {M1};
+\begin{scope}[shift={(soc0)},x={(4em,0em)},y={(0em,4em)}]
+\node (e1) [inner sep=0em,minimum width=0.05em] at (0.6,-0.2) {};
+\node (e2) [inner sep=0em,minimum width=0.05em] at (0.1,-0.6) {};
+\node (e3) [inner sep=0em,minimum width=0.05em] at (-0.5,0.2) {};
+\node (i1) [inner sep=0em,minimum width=0.05em] at (0.1,0.15) {};
+\node (i2) [inner sep=0em,minimum width=0.05em] at (-0.4,-0.45) {};
+\draw [-*,thick,exc,bend left] (e1) to (e2);
+\draw [-*,thick,exc,bend left] (e2) to (e1);
+\draw [-*,thick,exc,bend left] (e2) to (i2);
+\draw [-*,thick,exc,bend right] (e1) to (i1);
+\draw [-*,thick,exc,bend left] (e3) to (i1);
+\draw [-*,thick,exc,bend right] (e3) to (i2);
+\draw [-*,thick,exc,bend right] (e2) to (i1);
+\draw [-*,thick,exc,bend left] (e1) to (e3);
+\draw [-*,thick,inh,bend left] (i1) to (e3);
+\draw [-*,thick,inh,bend right] (i1) to (i2);
+\foreach \j in {1,2,3} \node [fill=exc!40,thick,draw=exc,circle,inner sep=0em,minimum width=0.7em] at (e\j) {};
+\foreach \j in {1,2} \node [fill=inh!40,thick,draw=inh,circle,inner sep=0em,minimum width=0.7em] at (i\j) {};
+\end{scope}
+
+
+
+
 
 % don't forget all your panel labels etc
 % e.g.:
