@@ -13,10 +13,10 @@ set multiplot
 set style line 1 lt 1 lw 2 pt 5 ps 0.5 lc rgb "#e51e10"
 set style line 2 lt 1 lw 2 pt 9 ps 0.8 lc rgb "#56b4e9"
 
- dir = ARG1 #  "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/data_for_figure"
- dir2 = ARG2 #  "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/arm_model_data"
-# dir = "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/data_for_figure"
-# dir2 = "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/arm_model_data"
+# dir = ARG1 #  "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/data_for_figure"
+#  dir2 = ARG2 #  "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/arm_model_data"
+ dir = "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/data_for_figure"
+ dir2 = "/Users/xizi/Dropbox/work/wGuillaume/cosyne2018/arm_model_data"
 
 
 # ---- weight matrix and associated spectrum ----
@@ -212,6 +212,140 @@ set format x "%g"
 set xlabel 'E/I cor.'
 time = 400
 replot
+
+
+# ---- psd of dynamics of 3 neurons: no oscillations ----
+
+load 'rdylbu.pal'
+set cbrange [1:3]
+
+set lmargin at screen 0.3
+set rmargin at screen 0.33
+nn = 3
+gap=0.002
+tm=0.73
+bm=0.68
+w=(tm-bm-(nn-1)*gap)/nn
+
+i=0
+set tmargin at screen bm+i*gap+i*w+w
+set bmargin at screen bm+i*gap+i*w
+
+set border 3
+set logscale
+
+set xlabel "frequency [Hz]" offset 0,0
+set ylabel "power [dB]" offset 0,0
+
+set xrange [0.1:1000]
+set yrange [1e-10:1]
+
+set xtics (0.1,1,10,100, 1000) 
+set format x "$10^{%L}$"
+set ytics offset 0,0
+set ytics (1e-10,"" 1e-8, "" 1e-6, "" 1e-4, "" 1e-2, 1) 
+set format y "$10^{%L}$"
+
+n=3
+plot dir."/ActivityMatrix_psd.txt" u 1:n+1 w l lw 2 lc palette cb i+1
+
+
+i=1
+set tmargin at screen bm+i*gap+i*w+w
+set bmargin at screen bm+i*gap+i*w
+n=20
+replot
+
+i=2
+set tmargin at screen bm+i*gap+i*w+w
+set bmargin at screen bm+i*gap+i*w
+n=40
+replot
+
+
+
+
+
+# ---- psd of contributions of eigenvectors: clear oscillations ----
+
+set lmargin at screen 0.34
+set rmargin at screen 0.37
+
+nn = 3
+gap=0.002
+tm=0.73
+bm=0.68
+w=(tm-bm-(nn-1)*gap)/nn
+
+i=0
+set tmargin at screen bm+i*gap+i*w+w
+set bmargin at screen bm+i*gap+i*w
+
+set border 3
+set logscale
+
+set xlabel "frequency [Hz]" offset 0,0
+set ylabel "power [dB]" offset 0,0
+
+set xrange [0.1:1000]
+set yrange [1e-10:1]
+
+set xtics (0.1,1,10,100, 1000) 
+set format x "$10^{%L}$"
+set ytics offset 0,0
+set ytics (1e-10,"" 1e-8, "" 1e-6, "" 1e-4, "" 1e-2, 1) 
+set format y "$10^{%L}$"
+
+n=3
+plot dir."/ActivityContributionMatrix_psd.txt" u 1:n w l lw 2 lc palette cb i+1
+
+
+i=1
+set tmargin at screen bm+i*gap+i*w+w
+set bmargin at screen bm+i*gap+i*w
+n=20
+replot
+
+i=2
+set tmargin at screen bm+i*gap+i*w+w
+set bmargin at screen bm+i*gap+i*w
+n=40
+replot
+
+
+
+
+# ---- psd of projections onto extracted orthogonal basis: some oscillations ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
