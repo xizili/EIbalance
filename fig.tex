@@ -132,11 +132,49 @@
 
 \node at (41.5, 79) [rotate=90,anchor=base] {\textcolor{exc}{exc}/\textcolor{inh}{inh} inputs (z-score)};
 
-
-
 % don't forget all your panel labels etc
 % e.g.:
-% \node at (10,90) [anchor=base,font=\bfseries,scale=1.5] {A};
+\node at (29.1,83) [anchor=base,font=\bfseries,scale=1.5] {A};
+\node at (29.1,79.6) [anchor=base,font=\bfseries,scale=1.5] {B};
+\node at (34.7,79.6) [anchor=base,font=\bfseries,scale=1.5] {C};
+\node at (29.1,76) [anchor=base,font=\bfseries,scale=1.5] {D};
+\node at (41.3,83) [anchor=base,font=\bfseries,scale=1.5] {E};
+\node at (29.1,72.5) [anchor=base,font=\bfseries,scale=1.5] {F};
+
+
+% figure caption!
+
+\node at (34, 73.3) [below right,scale=1.3,text width=39em,align=justify] {
+  \baselineskip=14pt
+  {\bfseries FIGURE 1} ---
+  {\bfseries (A)}~An inhibition-stabilized network (ISN) model of M1
+    is initialized in movement-dependent states, from which dynamics
+    evolve and result in the production of two torques actuating
+    a two-link arm. The model is calibrated so as to produce 8 different
+    straight reaches.
+  {\bfseries (B)}~Connectivity matrix of the ISN, showing sparse random
+  excitatory connections and denser inhibitory ones optimized for robust stability.
+  {\bfseries (C)}~Eigenvalue spectrum of the connectivity matrix shown in (B). Note
+  the presence of many eigenvalue pairs with poor damping, indicative of strong
+  oscillations in the corresponding eigenplanes.
+  {\bfseries (D)}~Example single-neuron responses to each of the 8 straight reaches
+  (cf.\ color code in panel A). 
+  {\bfseries (E)}~Normalized total recurrent E (red) and I (blue) inputs, 
+  for three example neurons in the model (horizontally), at three different times
+  during movement (vertically; early, mid-movement, and late).
+  For each neuron, the Pearson correlation between E and I inputs across the 8 movements
+  is calculated, and population histograms are shown on the right.
+  {\bfseries (F)}~Top: power-spectra of three individual sample neurons in the model,
+  during spontaneous (noise-driven) activity. Note the absence of well-defined oscillations.
+  Middle: power-spectra of the contributions of each eigenplane to the momentary activity
+  (colors only aid visualization; not all eigenplanes are shown for clarity).
+  Bottom: power-spectra of the activity projections recovered by our new analysis technique
+  (cf.\ text).
+  \par
+};
+
+
+
 
 \end{tikzpicture}
 \end{document}
